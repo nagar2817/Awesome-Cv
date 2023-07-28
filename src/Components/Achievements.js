@@ -1,19 +1,24 @@
 import React,{useState} from 'react';
 import { Box, Typography ,TextField,IconButton} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { AchievementsData } from '../Data';
+// import { AchievementsData } from '../Data';
 
-const Achievements = ({achieveRef})=>{
+const Achievements = ({achieveRef,achievementData,setAchievementData})=>{
     const [achievementsEditable, setAchievementsEditable] = useState(false);
-  const [achievementsData, setAchievementsData] = useState(AchievementsData);
-
+  const [currentData, setCurrentData] = useState(achievementData);
   const handleSaveChangesAchievements = () => {
     setAchievementsEditable(false);
+    setAchievementData(currentData);
+    
+    console.log("achiementData",currentData);
   };
+
+  // const Arraymap = currentData.split(',');
     return (
 <Box sx={{ marginBottom: '40px' }} ref={achieveRef}>
           <Typography variant="h5">
             Achievements{' '}
+            {/* {console.log('newData',ArrayAchievements())} */}
             {!achievementsEditable && (
               <IconButton
                 onClick={() => setAchievementsEditable(true)}
@@ -26,9 +31,10 @@ const Achievements = ({achieveRef})=>{
           </Typography>
           {!achievementsEditable ? (
             <ul>
-              {achievementsData.map((achievement, index) => (
+              {currentData.map((achievement, index) => (
                 <li key={index}>{achievement}</li>
               ))}
+              {/* {currentData}  */}
             </ul>
           ) : (
             <TextField
@@ -36,9 +42,9 @@ const Achievements = ({achieveRef})=>{
               fullWidth
               multiline
               label="Achievements (separated by commas)"
-              value={achievementsData.join(', ')}
+              value={currentData.join(',')}  
               onChange={(e) => {
-                setAchievementsData(e.target.value.split(', '));
+                setCurrentData(e.target.value.split(','))  
               }}
               margin="normal"
             />

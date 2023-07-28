@@ -3,23 +3,28 @@ import {Box,Typography,TextField,IconButton} from '@mui/material';
 import EditIcon from "@mui/icons-material/Edit";
 import { educationData } from "../Data";
 
-const Education = ({edu})=>{
+const Education = ({educationDetail,updateEducationDetail})=>{
     const [educationEditable, setEducationEditable] = useState(false);
-    const[degree,setDegree] = useState(edu.degree);
-    const[institution,setInstitution] = useState(edu.institution);
-    const [location,setLocation] = useState(edu.location);
-    const[graduationYear,setGraduationYear] = useState(edu.graduationYear);
-    const [gpa, setGpa] = useState(edu.gpa);
+    // const[currentData.degree,setDegree] = useState(edu.currentData.degree);
+    // const[institution,setInstitution] = useState(edu.institution);
+    // const [location,setLocation] = useState(edu.location);
+    // const[graduationYear,setGraduationYear] = useState(edu.graduationYear);
+    // const [gpa, setGpa] = useState(edu.gpa);
+   const [currentData,setCurrentData]= useState(educationDetail);
    
-    const handleSaveChangesEducation = () => {
-        setEducationEditable(false);
-        // Save changes for the Education section here
-      };
+      
+  const handleEducation = () => {
+    setEducationEditable(false);
+    // Save changes for the Experience section here
+    updateEducationDetail(currentData);
+    console.log("currenEducationData",currentData);
+  };
+      
     return (
 <>
         {!educationEditable ? (
                 <Box  sx={{ marginBottom: '20px' }}>
-                  <Typography variant="subtitle1">{degree}
+                  <Typography variant="subtitle1">{currentData.degree}
                    <IconButton
                 onClick={() => setEducationEditable(true)}
                 size="small"
@@ -28,37 +33,37 @@ const Education = ({edu})=>{
                 <EditIcon />
               </IconButton>
             </Typography>
-                  <Typography variant="subtitle2">{institution}</Typography>
+                  <Typography variant="subtitle2">{currentData.institution}</Typography>
                   <Typography variant="body2" sx={{ marginBottom: '10px' }}>
-                    {location} • {graduationYear} • GPA: {gpa}
+                    {currentData.location} • {currentData.graduationYear} • GPA: {currentData.gpa}
                   </Typography>
                 </Box>
           ) : (
             <div>
-              {educationData.map((education, index) => (
+              
                 <Box  sx={{ marginBottom: '20px' }}>
                   <TextField
                     variant="outlined"
                     fullWidth
-                    label="Degree"
-                    value={degree}
-                    onChange={(e)=>setDegree(e.target.value)}
+                    label="currentData.degree"
+                    value={currentData.degree}
+                    onChange={(e)=>setCurrentData({...currentData,degree:e.target.value})}
                     margin="normal"
                   />
                   <TextField
                     variant="outlined"
                     fullWidth
                     label="Institution"
-                    value={institution}
-                    onChange={(e)=>setInstitution(e.target.value)}
+                    value={currentData.institution}
+                    onChange={(e)=>setCurrentData({...currentData,institution:e.target.value})}
                     margin="normal"
                   />
                   <TextField
                     variant="outlined"
                     fullWidth
                     label="Location"
-                    value={location}
-                    onChange={(e)=>setLocation(e.target.value)}
+                    value={currentData.location}
+                    onChange={(e)=>setCurrentData({...currentData,location:e.target.value})}
                     margin="normal"
                   />
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -66,26 +71,26 @@ const Education = ({edu})=>{
                       variant="outlined"
                       fullWidth
                       label="Graduation Year"
-                      value={graduationYear}
-                      onChange={(e)=>setGraduationYear(e.target.value)}
+                      value={currentData.graduationYear}
+                      onChange={(e)=>setCurrentData({...currentData,graduationYear:e.target.value})}
                       margin="normal"
                     />
                     <TextField
                       variant="outlined"
                       fullWidth
                       label="GPA"
-                      value={gpa}
-                      onChange={(e)=>setGpa(e.target.value)}
+                      value={currentData.gpa}
+                      onChange={(e)=>setCurrentData({...currentData,gpa:e.target.value})}
                       margin="normal"
                     />
                   </Box>
                 </Box>
-              ))}
+              
             </div>
           )}
           {educationEditable && (
             <Box sx={{ textAlign: 'right', marginTop: '10px' }}>
-              <button onClick={handleSaveChangesEducation}>Save Changes</button>
+              <button onClick={handleEducation}>Save Changes</button>
             </Box>
           )}
 

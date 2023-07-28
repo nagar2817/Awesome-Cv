@@ -1,16 +1,19 @@
 import React,{useState} from 'react';
 import { Box, Typography ,TextField,IconButton} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { AboutData } from '../Data';
+import Button from '@mui/material/Button';
+// import { AboutData } from '../Data';
 
-const About = ({aboutRef})=>{
+const About = ({AboutData,setAboutMeData})=>{
     const [aboutEditable, setAboutEditable] = useState(false);
     const [aboutValue,setAboutValue] = useState(AboutData);
+    
     const saveHandler = ()=>{
         setAboutEditable(false);
+        setAboutMeData(aboutValue);
     }
     return (
-    <Box sx={{ marginBottom: '40px' }} ref={aboutRef}>
+    <Box sx={{ marginBottom: '40px' }} >
     <Typography variant="h5">
       About Me{' '}
       {!aboutEditable && (
@@ -24,7 +27,9 @@ const About = ({aboutRef})=>{
       )}
     </Typography>
     {!aboutEditable ? (
-      <Typography variant="body1">{aboutValue}</Typography>
+      <Typography variant="body1">
+  {/* {console.log(aboutValue)} */}
+        {AboutData}</Typography>
     ) : (
       <TextField
         variant="outlined"
@@ -37,7 +42,7 @@ const About = ({aboutRef})=>{
     )}
     {aboutEditable && (
       <Box sx={{ textAlign: 'right', marginTop: '10px' }}>
-        <button onClick={() => saveHandler()}>Save Changes</button>
+        <Button variant="contained" color="success" onClick={() => saveHandler()}>Close Changes</Button>
       </Box>
     )}
   </Box>

@@ -1,29 +1,24 @@
 import React, { useState } from 'react';
 import { Box, Typography, TextField, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { experienceData } from '../Data';
+// import { experienceData } from '../Data';
 
-const Experience = ({experienceData,index})=>{
+const Experience = ({experienceDetail,updateExperienceData})=>{
     const [experienceEditable, setExperienceEditable] = useState(false);
-  const [companyName, setCompanyName] = useState(experienceData.companyName);
-  const [position, setPosition] = useState(experienceData.position);
-  const [startDate, setStartDate] = useState(experienceData.startDate);
-  const [endDate, setEndDate] = useState(experienceData.endDate);
-  const [location, setLocation] = useState(experienceData.location);
-  const [domain, setDomain] = useState(experienceData.domain);
-  const [bullets,setBullets] = useState(experienceData.bullets);
-
+  const [currentData,setCurrentData] = useState(experienceDetail);
   
   const handleSaveChangesExperience = () => {
     setExperienceEditable(false);
     // Save changes for the Experience section here
+    updateExperienceData(currentData);
+    console.log("currenExperienceData",currentData);
   };
     return (
         <>
         { !experienceEditable ?
             <Box sx={{ marginBottom: '40px' }}>
             <Typography variant="subtitle1">
-              {position} at {companyName} {!experienceEditable && (
+              {currentData.position} at {currentData.companyName} {!experienceEditable && (
               <IconButton
                 onClick={() => setExperienceEditable(true)}
                 size="small"
@@ -34,13 +29,13 @@ const Experience = ({experienceData,index})=>{
             )}
             </Typography>
             <Typography variant="body2" sx={{ marginBottom: '10px' }}>
-              {startDate} - {endDate} | {location}
+              {currentData.startDate} - {currentData.endDate} | {currentData.location}
             </Typography>
             <Typography variant="subtitle2" sx={{ marginBottom: '10px' }}>
-              {domain.map(item=><span>{item}</span>)}
+              {currentData.domain.map(item=><span>{item}</span>)}
             </Typography>
             <ul>
-              {bullets.map((bullet, bulletIndex) => (
+              {currentData.bullets.map((bullet, bulletIndex) => (
                 <li key={bulletIndex}>{bullet}</li>
               ))}
             </ul>
@@ -50,16 +45,16 @@ const Experience = ({experienceData,index})=>{
             variant="outlined"
             fullWidth
             label="Company Name"
-            value={companyName}
-            onChange={(e)=>setCompanyName(e.target.value)}
+            value={currentData.companyName}
+            onChange={(e)=>setCurrentData({...currentData, companyName:e.target.value})}
             margin="normal"
           />
           <TextField
             variant="outlined"
             fullWidth
             label="Position"
-            value={position}
-            onChange={(e)=>setPosition(e.target.value)}
+            value={currentData.position}
+            onChange={(e)=>setCurrentData({...currentData, position:e.target.value})}
             margin="normal"
           />
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -67,8 +62,8 @@ const Experience = ({experienceData,index})=>{
               variant="outlined"
               fullWidth
               label="Start Date"
-              value={startDate}
-              onChange={(e)=>setStartDate(e.target.value)}
+              value={currentData.startDate}
+              onChange={(e)=>setCurrentData({...currentData, startDate:e.target.value})}
               margin="normal"
             />
             <Typography
@@ -81,16 +76,16 @@ const Experience = ({experienceData,index})=>{
               variant="outlined"
               fullWidth
               label="End Date"
-              value={endDate}
-              onChange={(e)=>setEndDate(e.target.value)}
+              value={currentData.endDate}
+              onChange={(e)=>setCurrentData({...currentData, endDate:e.target.value})}
               margin="normal"
             />
             <TextField
               variant="outlined"
               fullWidth
               label="Location"
-              value={location}
-              onChange={(e)=>setLocation(e.target.value)}
+              value={currentData.location}
+              onChange={(e)=>setCurrentData({...currentData, location:e.target.value})}
               margin="normal"
             />
           </Box>
@@ -98,16 +93,16 @@ const Experience = ({experienceData,index})=>{
             variant="outlined"
             fullWidth
             label="Domain"
-            value={domain}
-            onChange={(e)=>setDomain(e.target.value)}
+            value={currentData.domain.join(',')}
+            onChange={(e)=>setCurrentData({...currentData, domain:e.target.value.split(',')})}
             margin="normal"
           />
           <TextField
             variant="outlined"
             fullWidth
             label="Bullets (separated by commas)"
-            value={bullets.join(', ')}
-            onChange={(e)=>setBullets(e.target.value)}
+            value={currentData.bullets.join(',')}
+            onChange={(e)=>setCurrentData({...currentData, bullets:e.target.value.split(',')})}
             margin="normal"
           />
         </Box>

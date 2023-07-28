@@ -1,19 +1,22 @@
 import React,{useState} from 'react';
 import { Box, Typography ,TextField,IconButton} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { courseWorkData } from '../Data';
+// import { courseWorkData } from '../Data';
 
-const CourseWork = ({courseRef})=>{
+const CourseWork = ({courseRef,courseWork,setCourseWorkData})=>{
     const [courseEditable, setCourseEditable] = useState(false);
-  const [courseData, setCourseData] = useState(courseWorkData);
+  const [courseData, setCourseData] = useState(courseWork);
 
   const handleSaveChangesAchievements = () => {
     setCourseEditable(false);
+    setCourseWorkData(courseData);
+    console.log('couse',courseData);
   };
+
     return (
 <Box sx={{ marginBottom: '40px' }} ref={courseRef}>
           <Typography variant="h5">
-            Achievements{' '}
+            CourseWork{' '}
             {!courseEditable && (
               <IconButton
                 onClick={() => setCourseEditable(true)}
@@ -36,9 +39,9 @@ const CourseWork = ({courseRef})=>{
               fullWidth
               multiline
               label="Achievements (separated by commas)"
-              value={courseData.join(', ')}
+              value={courseData.join(',')}
               onChange={(e) => {
-                setCourseData(e.target.value.split(', '));
+                setCourseData(e.target.value.split(','));
               }}
               margin="normal"
             />

@@ -2,32 +2,44 @@ import React, { useState } from 'react';
 import { Box, Grid, Typography, TextField, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
-const skillsData = {
-  languages: 'Python, Java, JavaScript, C, C++, HTML/CSS, Bash',
-  databases: 'MySQL, PostgreSQL, MongoDB',
-  libraries: 'NumPy, Pandas, OpenCV',
-  frameworks: 'Flask, Django, Node.js, Keras, TensorFlow, PyTorch, Bootstrap, Apache Beam',
-  tools: 'Git, Docker, AWS, GCP, Heroku, JIRA',
-};
+// const skillsData = {
+//   languages: 'Python, Java, JavaScript, C, C++, HTML/CSS, Bash',
+//   databases: 'MySQL, PostgreSQL, MongoDB',
+//   libraries: 'NumPy, Pandas, OpenCV',
+//   frameworks: 'Flask, Django, Node.js, Keras, TensorFlow, PyTorch, Bootstrap, Apache Beam',
+//   tools: 'Git, Docker, AWS, GCP, Heroku, JIRA',
+// };
 
-const Skill = ({skillsRef}) => {
+const Skill = ({ skillsData,setSkillsData}) => {
+  
   const [skillsEditable, setSkillsEditable] = useState(false);
-  const [languagesValue, setLanguagesValue] = useState(skillsData.languages);
-  const [databasesValue, setDatabasesValue] = useState(skillsData.databases);
-  const [librariesValue, setLibrariesValue] = useState(skillsData.libraries);
-  const [frameworksValue, setFrameworksValue] = useState(skillsData.frameworks);
-  const [toolsValue, setToolsValue] = useState(skillsData.tools);
+  const [languagesValue, setLanguagesValue] = useState(skillsData[0].languages);
+  const [databasesValue, setDatabasesValue] = useState(skillsData[0].databases);
+  const [librariesValue, setLibrariesValue] = useState(skillsData[0].libraries);
+  const [frameworksValue, setFrameworksValue] = useState(skillsData[0].frameworks);
+  const [toolsValue, setToolsValue] = useState(skillsData[0].tools);
 
   // Function to handle saving changes for Skills section
   const handleSaveChangesSkills = () => {
     setSkillsEditable(false);
     // Save changes for Skills section here
+    const updatedSkills = [
+      {
+        languages : languagesValue,
+        databases: databasesValue,
+        libraries: librariesValue,
+        frameworks : frameworksValue,
+        tools: toolsValue
+      }
+    ]
+    console.log("updateed skills",updatedSkills);
+    setSkillsData(updatedSkills);
   };
 
   // ... rest of the code ...
 
   return (
-        <Box sx={{ marginBottom: '40px' }} ref={skillsRef}>
+        <Box sx={{ marginBottom: '40px' }} >
           <Typography variant="h5">
             Skills{' '}
             {!skillsEditable && (
@@ -44,6 +56,7 @@ const Skill = ({skillsRef}) => {
             <Typography variant="body1">
               <ul>
                 <li>
+  {console.log(skillsData)}
                   <strong>Languages: </strong> {languagesValue}
                 </li>
                 <li>
