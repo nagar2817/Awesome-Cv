@@ -1,17 +1,22 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import {Box,Typography,IconButton} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 // import { projectsData } from "../Data";
 import Project from "./Project";
-const ProjectList = ({projectData,setProjectData,userEmail})=>{
+const ProjectList = forwardRef(({projectData,setProjectData,userEmail},ref)=>{
   const handleUpdateProject = (index, updatedProjectData) => {
     // Update the projectData array based on the index
     const updatedProjectDataArray = [...projectData];
     updatedProjectDataArray[index] = updatedProjectData;
     setProjectData(updatedProjectDataArray);
   };
+  const handleTempDelete = (index)=>{ 
+    const updatedProjectDataArray = projectData.filter((_, i) => i !== index);
+    console.log(index);
+    setProjectData(updatedProjectDataArray); 
+  }
     return( 
-        <Box sx={{ marginBottom: '40px' }}>
+        <Box sx={{ marginBottom: '40px' }} ref={ref}>
         <Typography variant="h5"> 
         {console.log(projectData)}
         Projects</Typography>
@@ -24,10 +29,11 @@ const ProjectList = ({projectData,setProjectData,userEmail})=>{
           key={index} 
           projectDetail={project}
           updateProjectData={(updatedProjectData) => handleUpdateProject(index, updatedProjectData)}
+          tempDelete={()=>handleTempDelete(index-1)}
           /> 
         ))} 
       </Box>
     )
-}
+})
 
 export default ProjectList;

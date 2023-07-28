@@ -1,20 +1,25 @@
-import React,{useState} from 'react';
+import React,{forwardRef, useEffect, useState} from 'react';
 import { Box, Typography ,TextField,IconButton} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button';
+
 // import { courseWorkData } from '../Data';
 
-const CourseWork = ({courseRef,courseWork,setCourseWorkData})=>{
+const CourseWork = forwardRef(({courseRef,courseWork,setCourseWorkData},ref)=>{
     const [courseEditable, setCourseEditable] = useState(false);
   const [courseData, setCourseData] = useState(courseWork);
 
+  useEffect(()=>{
+    setCourseData(courseWork);
+  },[])
   const handleSaveChangesAchievements = () => {
     setCourseEditable(false);
-    setCourseWorkData(courseData);
+    setCourseWorkData(courseWork);
     console.log('couse',courseData);
   };
 
     return (
-<Box sx={{ marginBottom: '40px' }} ref={courseRef}>
+<Box sx={{ marginBottom: '40px' }} ref={ref}>
           <Typography variant="h5">
             CourseWork{' '}
             {!courseEditable && (
@@ -29,7 +34,7 @@ const CourseWork = ({courseRef,courseWork,setCourseWorkData})=>{
           </Typography>
           {!courseEditable ? (
             <ul>
-              {courseData.map((achievement, index) => (
+              {courseWork.map((achievement, index) => (
                 <li key={index}>{achievement}</li>
               ))}
             </ul>
@@ -39,7 +44,7 @@ const CourseWork = ({courseRef,courseWork,setCourseWorkData})=>{
               fullWidth
               multiline
               label="Achievements (separated by commas)"
-              value={courseData.join(',')}
+              value={courseWork.join(',')}
               onChange={(e) => {
                 setCourseData(e.target.value.split(','));
               }}
@@ -48,12 +53,13 @@ const CourseWork = ({courseRef,courseWork,setCourseWorkData})=>{
           )}
           {courseEditable && (
             <Box sx={{ textAlign: 'right', marginTop: '10px' }}>
-              <button onClick={handleSaveChangesAchievements}>Save Changes</button>
+              
+              <Button variant="contained" color="success" onClick={handleSaveChangesAchievements}>Close Changes</Button>
             </Box>
           )}
         </Box>
     )
 
-}
+})
 
 export default CourseWork;

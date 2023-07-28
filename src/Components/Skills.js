@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { Box, Grid, Typography, TextField, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import { ToastContainer, toast } from 'react-toastify';
+import Button from '@mui/material/Button';
+
 
 // const skillsData = {
 //   languages: 'Python, Java, JavaScript, C, C++, HTML/CSS, Bash',
@@ -10,7 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 //   tools: 'Git, Docker, AWS, GCP, Heroku, JIRA',
 // };
 
-const Skill = ({ skillsData,setSkillsData}) => {
+const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
   
   const [skillsEditable, setSkillsEditable] = useState(false);
   const [languagesValue, setLanguagesValue] = useState(skillsData[0].languages);
@@ -34,12 +37,22 @@ const Skill = ({ skillsData,setSkillsData}) => {
     ]
     console.log("updateed skills",updatedSkills);
     setSkillsData(updatedSkills);
+    toast('🦄 Wow so easy!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
   };
 
   // ... rest of the code ...
 
   return (
-        <Box sx={{ marginBottom: '40px' }} >
+        <Box sx={{ marginBottom: '40px' }} ref={ref} >
           <Typography variant="h5">
             Skills{' '}
             {!skillsEditable && (
@@ -124,11 +137,26 @@ const Skill = ({ skillsData,setSkillsData}) => {
           )}
           {skillsEditable && (
             <Box sx={{ textAlign: 'right', marginTop: '10px' }}>
-              <button onClick={handleSaveChangesSkills}>Save Changes</button>
+              <Button variant="contained" color="success" onClick={handleSaveChangesSkills}>Close Changes</Button>
+
             </Box>
           )}
+          <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
+{/* Same as */}
+<ToastContainer />
         </Box>
   );
-};
+});
 
 export default Skill;

@@ -1,12 +1,17 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect, forwardRef} from 'react';
 import {ContactData} from '../Data';
 import axios from 'axios';
 import { Box,TextField,Typography,IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import API_URL from './constant';
 
-const Contact = ({username})=>{
+const Contact = forwardRef(({username},ref)=>{
     const [contactEditable, setContactEditable] = useState(false);
   const [contactData, setContactData] = useState(ContactData);
+
   // setContactData({...contactData,username:username});
 
   useEffect(() => {
@@ -18,7 +23,7 @@ const Contact = ({username})=>{
   const fetchUserData = async () => {
     try {
       // Make an API call to your Express server endpoint with the username
-      const response = await axios.get(`http://localhost:5000/usersinfo/${username}`);
+      const response = await axios.get(`${API_URL}/usersinfo/${username}`);
 
       // If the API call is successful, update the state with the user data
       setContactData(response.data);
@@ -33,17 +38,28 @@ const Contact = ({username})=>{
     setContactEditable(false);
     // Save changes for the Contact section here
     try{
-      const response = await axios.post('http://localhost:5000/usersinfo',contactData);
+      const response = await axios.post(`${API_URL}/usersinfo`,contactData);
       console.log(response.data);
       // setContactData(response.data);
+      toast.success('🦄 Wow so easy!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+        toast("click below to Save!!!")
     }catch(error){
       console.log('error while updating',error);
     }
   };
     return (
-      <Box sx={{ marginBottom: '40px' }} >
+      <Box sx={{ marginBottom: '40px' }} ref={ref}>
           <Typography variant="h5">
-            Contact{' '}
+            Lets Connect {' '}
             {!contactEditable && (
               <IconButton
                 onClick={() => setContactEditable(true)}
@@ -117,11 +133,13 @@ const Contact = ({username})=>{
           )}
           {contactEditable && (
             <Box sx={{ textAlign: 'right', marginTop: '10px' }}>
-              <button onClick={handleSaveChangesContact}>Save Changes</button>
+              <Button variant="contained" color="success" onClick={handleSaveChangesContact}>Close Changes</Button>
             </Box>
           )}
+  <ToastContainer/>
+
         </Box>
     )
-}
+})
 
 export default Contact;

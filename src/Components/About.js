@@ -1,19 +1,34 @@
-import React,{useState} from 'react';
+import React,{useState,forwardRef} from 'react';
 import { Box, Typography ,TextField,IconButton} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 // import { AboutData } from '../Data';
 
-const About = ({AboutData,setAboutMeData})=>{
+const About = forwardRef(({AboutData,setAboutMeData},ref)=>{
     const [aboutEditable, setAboutEditable] = useState(false);
-    const [aboutValue,setAboutValue] = useState(AboutData);
+    // const [aboutValue,setAboutValue] = useState(AboutData);
     
     const saveHandler = ()=>{
         setAboutEditable(false);
-        setAboutMeData(aboutValue);
+        setAboutMeData(AboutData);
+        toast.success('🦄 Wow so easy!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+          toast("click below to Save!!!")
     }
     return (
-    <Box sx={{ marginBottom: '40px' }} >
+    <Box sx={{ marginBottom: '40px' }} ref={ref} >
     <Typography variant="h5">
       About Me{' '}
       {!aboutEditable && (
@@ -35,8 +50,8 @@ const About = ({AboutData,setAboutMeData})=>{
         variant="outlined"
         fullWidth
         multiline
-        value={aboutValue}
-        onChange={(e) => setAboutValue(e.target.value)}
+        value={AboutData}
+        onChange={(e) => setAboutMeData(e.target.value)}
         margin="normal"
       />
     )}
@@ -45,8 +60,9 @@ const About = ({AboutData,setAboutMeData})=>{
         <Button variant="contained" color="success" onClick={() => saveHandler()}>Close Changes</Button>
       </Box>
     )}
+  <ToastContainer/>
   </Box>
     )
-}
+});
 
 export default About;

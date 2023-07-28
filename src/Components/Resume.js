@@ -9,6 +9,7 @@ import Achievements from './Achievements';
 import CourseWork from './CourseWork';
 import Contact from './Contact';
 import axios from 'axios';
+import API_URL from './constant';
 // import TwitterPost from './PostFavPic';
 // import TweetButton from './Twitter';
 
@@ -32,7 +33,7 @@ const Resume = ({userEmail,username}) => {
     try {
       // Fetch user data based on the email ID from the Express server
       // console.log(userEmail);
-      const response = await axios.get(`http://localhost:5000/users/${userEmail}`);
+      const response = await axios.get(`${API_URL}/users/${userEmail}`);
 
         // console.log(response.data);
         // setUserData(response.data);
@@ -45,6 +46,7 @@ const Resume = ({userEmail,username}) => {
       setExperienceData(response.data.experience);
       setEducationData(response.data.education);
       setAchievementData(response.data.achievements);
+      // console.log(achievementData)
       setCourseWorkData(response.data.coursework);
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -65,7 +67,7 @@ const Resume = ({userEmail,username}) => {
         achievements: achievementData,
         // Add other properties as needed
       };
-      const response = await axios.post(`http://localhost:5000/users/${userEmail}`, userDataToUpdate);
+      const response = await axios.post(`${API_URL}/users/${userEmail}`, userDataToUpdate);
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -75,17 +77,17 @@ const Resume = ({userEmail,username}) => {
     }
   }
 
-    const socialConnectData = {
-        linkedin: 'https://www.linkedin.com/in/rohit-nagar-8649aa1a2/',
-        github: 'https://github.com/nagar2817',
-        portfolio: 'https://rohitportfolio.gatsbyjs.io/',
-        email: 'nagar.2@iitj.ac.in',
-        phone: '+91 9694381084',
-        address: 'Bundi , Rajasthan ( india )',
-      };
+    // const socialConnectData = {
+    //     linkedin: 'https://www.linkedin.com/in/rohit-nagar-8649aa1a2/',
+    //     github: 'https://github.com/nagar2817',
+    //     portfolio: 'https://rohitportfolio.gatsbyjs.io/',
+    //     email: 'nagar.2@iitj.ac.in',
+    //     phone: '+91 9694381084',
+    //     address: 'Bundi , Rajasthan ( india )',
+    //   };
 
     const aboutRef = useRef(null);
-    const skillsRef = useRef(null);
+    // const skillsRef = useRef(null);
     const projectsRef = useRef(null);
     const experienceRef = useRef(null);
     const educationRef = useRef(null);
@@ -95,6 +97,7 @@ const Resume = ({userEmail,username}) => {
 
 
     const scrollToSection = (sectionRef) => {
+      // console.log(sectionRef)
         sectionRef.current.scrollIntoView({
           behavior: 'smooth',
           block: 'start',
@@ -107,31 +110,7 @@ const Resume = ({userEmail,username}) => {
       <Grid container spacing={2} sx={{ width: '80%' }}>
       <Grid item xs={12}>
           <Box sx={{ textAlign: 'center', marginBottom: '40px', paddingTop:'5em'}}>
-            <Typography variant="h5">Rohit Nagar</Typography>
-            <Box sx={{ marginTop: '10px' }}>
-              <a href={socialConnectData.linkedin} target="_blank" rel="noopener noreferrer">
-                LinkedIn
-              </a>{' '}
-              |{' '}
-              <a href={socialConnectData.github} target="_blank" rel="noopener noreferrer">
-                GitHub
-              </a>{' '}
-              |{' '}
-              <a href={socialConnectData.portfolio} target="_blank" rel="noopener noreferrer">
-                Portfolio
-              </a>
-              |{' '}
-              <a href={socialConnectData.email} target="_blank" rel="noopener noreferrer">
-                {socialConnectData.email}
-              </a>
-              <Typography variant="body1">
-                <strong>Phone:</strong> {socialConnectData.phone}
-              </Typography>
-              <Typography variant="body1">
-                <strong>Address:</strong> {socialConnectData.address}
-              </Typography>
-              {/* Add more social links or details as needed */}
-            </Box>
+            <Typography variant="h5">Welcome to Awesome Cv Page</Typography>
           </Box>
         </Grid>
 
@@ -142,35 +121,43 @@ const Resume = ({userEmail,username}) => {
               Resume Sections
             </Typography>
             <Typography variant="body1" sx={{ marginBottom: '10px', cursor: 'pointer' }}
-             onClick={()=>scrollToSection(aboutRef)}>
+            onClick={() => scrollToSection(aboutRef)}
+             >
               About Me
             </Typography>
-            <Typography variant="body1" sx={{ marginBottom: '10px', cursor: 'pointer' }}
-            onClick={()=>scrollToSection(skillsRef)} >
+            {/* <Typography variant="body1" sx={{ marginBottom: '10px', cursor: 'pointer' }}
+              onClick={() => scrollToSection(skillsRef)}
+            >
               Skills
-            </Typography>
+            </Typography> */}
             <Typography variant="body1" sx={{ marginBottom: '10px', cursor: 'pointer' }}
-            onClick={()=>scrollToSection(projectsRef)}>
+              onClick={() => scrollToSection(projectsRef)}
+            >
               Projects
             </Typography>
             <Typography variant="body1" sx={{ marginBottom: '10px', cursor: 'pointer' }}
-            onClick={()=>scrollToSection(experienceRef)}>
+              onClick={() => scrollToSection(experienceRef)}
+            >
               Experience
             </Typography>
             <Typography variant="body1" sx={{ marginBottom: '10px', cursor: 'pointer' }}
-            onClick={()=>scrollToSection(educationRef)}>
+              onClick={() => scrollToSection(educationRef)}
+            >
               Education
             </Typography>
             <Typography variant="body1" sx={{ marginBottom: '10px', cursor: 'pointer' }}
-            onClick={()=>scrollToSection(achievementRef)}>
+              onClick={() => scrollToSection(achievementRef)}
+            >
               Achievements
             </Typography>
             <Typography variant="body1" sx={{ marginBottom: '10px', cursor: 'pointer' }}
-            onClick={()=>scrollToSection(courseRef)}>
+              onClick={() => scrollToSection(courseRef)}
+            >
               CourseWork
             </Typography>
             <Typography variant="body1" sx={{ marginBottom: '10px', cursor: 'pointer' }}
-            onClick={()=>scrollToSection(contactRef)}>
+              onClick={() => scrollToSection(contactRef)}
+           >
               Contact
             </Typography>
            
@@ -181,16 +168,16 @@ const Resume = ({userEmail,username}) => {
           <Paper sx={{ padding: '20px' }}>
             {/* <TwitterPost /> */}
             {/* <TweetButton /> */}
+        <Contact ref={contactRef}  username={username}/>
             <About ref={aboutRef} AboutData={aboutMeData} setAboutMeData={setAboutMeData}/>
 
         {/* <Skill ref={skillsRef} skillsData={skillsData} setSkillsData={setSkillsData}/> */}
-        <ProjectList ref={projectsRef} projectData={projectData} setProjectData={setProjectData} userEmail={userEmail} />
-        <ExperienceList ref={experienceRef} experienceData={experienceData} setExperienceData={setExperienceData} />
+        <ProjectList ref={projectsRef}  projectData={projectData} setProjectData={setProjectData} userEmail={userEmail} />
+        <ExperienceList  ref={experienceRef}  experienceData={experienceData} setExperienceData={setExperienceData} />
         <EducationList ref={educationRef} educationData={educationData} setEducationData={setEducationData} />
-        <Achievements ref={achievementRef} achievementData={achievementData} setAchievementData={setAchievementData} />
-        <CourseWork ref={courseRef} courseWork={courseWorkData} setCourseWorkData={setCourseWorkData} />
-        <Contact ref={contactRef} username={username}/>
-        <Button onClick={saveEntireChanges}>  Save Changes</Button>
+        <Achievements ref={achievementRef}   achievementData={achievementData} setAchievementData={setAchievementData} />
+        <CourseWork  ref={courseRef}  courseWork={courseWorkData} setCourseWorkData={setCourseWorkData} />
+        <Button variant='contained' color="success" onClick={saveEntireChanges}>  Save Changes</Button>
           </Paper>
         </Grid>
       </Grid>
