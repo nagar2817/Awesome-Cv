@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./Login";
 import {Box, CircularProgress } from "@mui/material";
+import TwitterUploader from "./Twitter";
 // import LogoutButton from "./LogoutButton";
 import Resume from "./Resume";
 import Header from "./Header";
@@ -24,7 +25,10 @@ const Profile = () => {
     <div>
       {console.log(user)}
       <Header user={user} />
-<Resume username={user.nickname} userEmail={user.email} />
+      {console.log(user.picture)}
+      <TwitterUploader image={user.picture} />
+
+<Resume currentname={user.nickname} userEmail={user.nickname} />
 
  </div>
     :

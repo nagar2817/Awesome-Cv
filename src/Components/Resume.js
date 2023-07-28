@@ -10,14 +10,15 @@ import CourseWork from './CourseWork';
 import Contact from './Contact';
 import axios from 'axios';
 import API_URL from './constant';
+import TwitterUploader from './Twitter';
 // import TwitterPost from './PostFavPic';
 // import TweetButton from './Twitter';
 
 
-const Resume = ({userEmail,username}) => {
+const Resume = ({userEmail,currentname}) => {
 
   const [aboutMeData, setAboutMeData] = useState('');
-  const [skillsData, setSkillsData] = useState('');
+  const [skillsData, setSkillsData] = useState([]);
   const [projectData, setProjectData] = useState([]);
   const [experienceData, setExperienceData] = useState([]);
   const [educationData, setEducationData] = useState([]);
@@ -40,7 +41,6 @@ const Resume = ({userEmail,username}) => {
       // Update the state with the received data for different sections
       setAboutMeData(response.data.aboutMe);
       setSkillsData(response.data.skillsData);
-      
       // console.log("skills",skillsData);
       setProjectData(response.data.projects);
       setExperienceData(response.data.experience);
@@ -58,6 +58,7 @@ const Resume = ({userEmail,username}) => {
     try {
       // console.log("in entire change",skillsData);
       const userDataToUpdate = {
+        username:userEmail,
         aboutMe: aboutMeData,
         skillsData: skillsData,
         projects: projectData,
@@ -109,8 +110,8 @@ const Resume = ({userEmail,username}) => {
     <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
       <Grid container spacing={2} sx={{ width: '80%' }}>
       <Grid item xs={12}>
-          <Box sx={{ textAlign: 'center', marginBottom: '40px', paddingTop:'5em'}}>
-            <Typography variant="h5">Welcome to Awesome Cv Page</Typography>
+          <Box sx={{ textAlign: 'center', marginBottom: '20px', paddingTop:'2em'}}>
+            <Typography variant="h4">Welcome to Awesome Cv Page</Typography>
           </Box>
         </Grid>
 
@@ -168,7 +169,9 @@ const Resume = ({userEmail,username}) => {
           <Paper sx={{ padding: '20px' }}>
             {/* <TwitterPost /> */}
             {/* <TweetButton /> */}
-        <Contact ref={contactRef}  username={username}/>
+                 {/* <TwitterUploader image={user.picture} /> */}
+
+        <Contact ref={contactRef}  username={currentname}/>
             <About ref={aboutRef} AboutData={aboutMeData} setAboutMeData={setAboutMeData}/>
 
         {/* <Skill ref={skillsRef} skillsData={skillsData} setSkillsData={setSkillsData}/> */}

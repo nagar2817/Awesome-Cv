@@ -1,54 +1,82 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
+import React, { useState } from 'react';
+import axios from 'axios';
+import API_URL from './constant';
+import { Box } from '@mui/material';
+import Button from '@mui/material/Button';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-// const TweetButton = () => {
-//   const [selectedFile, setSelectedFile] = useState(null);
 
-//   const onDrop = (acceptedFiles) => {
-//     // We'll use only the first selected file for this example
-//     setSelectedFile(acceptedFiles[0]);
+const TwitterUploader = ({image}) => {
+//   const [file, setFile] = useState(null);
+  const [status, setStatus] = useState('');
+
+//   const handleFileChange = (e) => {
+//     const selectedFile = e.target.files[0];
+//     setFile(selectedFile);
 //   };
 
-//   const handleLogin = () => {
-//     // Redirect the user to the server endpoint for Twitter login
-//     window.location.href = 'http://localhost:5000/api/twitter/login';
-//   };
+  const handleUpload = async () => {
+    // const data = new FormData();
+    // data.append("file",file);
+    // data.append("upload_preset","ml_default");
+    // data.append("cloud_name","dst6tex9n");
+    // fetch("https://api.cloudinary.com/_v1_1/dst6tex9n/image/upload",{
+    //     method:"post",
+    //     body:data
+    // }).then((res=>res.json()))
+    // .then((data)=>{
+    //     console.log(data);
+    // }).catch((error)=>{
+    //     console.log(error);
+    // })
 
-//   const handleTweet = async () => {
-//     if (!selectedFile) {
-//       console.error('Please select an image to tweet.');
-//       return;
-//     }
+    // if(!file){
+    //     setStatus('Please select an image to upload and tweet.');
+    //     return;
+    // } 
+    // console.log(file)
+    // const formData = new FormData();
+    // await formData.append('image', file);
+    // console.log("formdata",formData);
+    // if(!image){
+    //     setStatus('select file')
+    //     return;
+    // }
+    try {
+      // Send the file to the server
+      toast.success('🦄 Tweet Posted!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+      await axios.post('http://localhost:5000/api/uploadToTwitter', {image});
+      console.log(1);
 
-//     // Read the selected file as a base64 string
-//     const reader = new FileReader();
-//     reader.readAsDataURL(selectedFile);
-//     reader.onload = async () => {
-//       const base64Data = reader.result.split(',')[1];
+      // Show success message to the user
+      setStatus('Image uploaded and tweet posted successfully!');
+     
+    } catch (error) {
+      // Show error message to the user
+      setStatus('Failed to upload image and post tweet.');
+    }
+  };
 
-//       try {
-//         // Post the tweet with the image on behalf of the user
-//         const response = await axios.post('http://localhost:5000/api/twitter/tweet', {
-//           base64Data,
-//           status: 'Check out my favorite pic!', // Replace with your desired tweet text
-//         });
+  return (
+    <div>
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '5em' }}>
+        <Button variant="contained" color="warning" onClick={handleUpload}>
+          Tweet My Profile Picture
+        </Button>
+      </Box>
+      <ToastContainer />
+    </div>
+  );
+};
 
-//         console.log('Tweet posted successfully!', response.data.tweet);
-//       } catch (error) {
-//         console.error('Error posting tweet:', error);
-//       }
-//     };
-//   };
-
-//   return (
-//     <div>
-//       <input type="file" onChange={(event) => onDrop(event.target.files)} />
-//       <button onClick={handleLogin}>Login with Twitter</button>
-//       <button onClick={handleTweet} disabled={!selectedFile}>
-//         Tweet Image
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default TweetButton;
+export default TwitterUploader;
