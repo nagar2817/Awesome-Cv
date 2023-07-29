@@ -8,9 +8,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import API_URL from './constant';
 
-const Contact = forwardRef(({username},ref)=>{
+const Contact = forwardRef(({username,usr,setUsr},ref)=>{
     const [contactEditable, setContactEditable] = useState(false);
-  const [contactData, setContactData] = useState(ContactData);
+  const [contactData, setContactData] = useState(ContactData)
 
   // setContactData({...contactData,username:username});
 
@@ -38,8 +38,10 @@ const Contact = forwardRef(({username},ref)=>{
     setContactEditable(false);
     // Save changes for the Contact section here
     try{
+      
       const response = await axios.post(`${API_URL}/usersinfo`,contactData);
       console.log(response.data);
+      // setUsr(contactData.username) 
       // setContactData(response.data);
       toast.success('🦄 Wow so easy!', {
         position: "top-right",
@@ -51,7 +53,7 @@ const Contact = forwardRef(({username},ref)=>{
         progress: undefined,
         theme: "dark",
         });
-        toast("click below to Save!!!")
+        toast("Contact Info has been saved!!!")
     }catch(error){
       console.log('error while updating',error);
     }
@@ -72,7 +74,7 @@ const Contact = forwardRef(({username},ref)=>{
           </Typography>
           {!contactEditable ? (
             <div>
-              <Typography variant="body1">Username: {contactData.username}</Typography>
+              <Typography variant="body1">Username: {username}</Typography>
               <Typography variant="body1">Name: {contactData.firstname} {contactData.lastname}</Typography>
               <Typography variant="body1">Email: {contactData.email}</Typography>
               <Typography variant="body1">Phone Number: {contactData.phonenumber}</Typography>
@@ -85,17 +87,22 @@ const Contact = forwardRef(({username},ref)=>{
                 variant="outlined"
                 fullWidth
                 label="Username"
-                value={contactData.username}
-                onChange={(e) => setContactData({ ...contactData, username: e.target.value })}
+                value={username}
+                // onChange={(e) => setContactData({ ...contactData, username: e.target.value })}
                 margin="normal"
+                required
+                InputProps={{
+                  readOnly: true,
+                }}
               />
               <TextField
                 variant="outlined"
                 fullWidth
                 label="First Name"
                 value={contactData.firstname}
-                onChange={(e) => setContactData({ ...contactData, firstname: e.target.value })}
+                onChange={(e) => setContactData({ ...contactData, firstname: e.target.value, username:username })}
                 margin="normal"
+                required
               />
               <TextField
                 variant="outlined"
@@ -104,6 +111,7 @@ const Contact = forwardRef(({username},ref)=>{
                 value={contactData.lastname}
                 onChange={(e) => setContactData({ ...contactData, lastname: e.target.value })}
                 margin="normal"
+                required
               />
               <TextField
                 variant="outlined"
@@ -112,6 +120,7 @@ const Contact = forwardRef(({username},ref)=>{
                 value={contactData.email}
                 onChange={(e) => setContactData({ ...contactData, email: e.target.value })}
                 margin="normal"
+                required
               />
               <TextField
                 variant="outlined"
@@ -120,6 +129,7 @@ const Contact = forwardRef(({username},ref)=>{
                 value={contactData.phonenumber}
                 onChange={(e) => setContactData({ ...contactData, phonenumber: e.target.value })}
                 margin="normal"
+                required
               />
               <TextField
                 variant="outlined"
@@ -128,12 +138,13 @@ const Contact = forwardRef(({username},ref)=>{
                 value={contactData.address}
                 onChange={(e) => setContactData({ ...contactData, address: e.target.value })}
                 margin="normal"
+                required
               />
             </div>
           )}
           {contactEditable && (
             <Box sx={{ textAlign: 'right', marginTop: '10px' }}>
-              <Button variant="contained" color="success" onClick={handleSaveChangesContact}>Close Changes</Button>
+              <Button variant="contained" color="success" onClick={handleSaveChangesContact}>Save Changes</Button>
             </Box>
           )}
   <ToastContainer/>

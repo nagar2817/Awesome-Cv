@@ -1,11 +1,23 @@
-import React from "react";
-import Button from '@mui/material/Button';
+
 import { useAuth0 } from "@auth0/auth0-react";
+import  React,{useEffect} from 'react';
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import NavigationIcon from '@mui/icons-material/Navigation';
 
-const LoginButton = () => {
+export default function LoginButton() {
   const { loginWithRedirect } = useAuth0();
-
-  return <Button variant="contained" onClick={() => loginWithRedirect()}>Log In</Button>;
-};
-
-export default LoginButton;
+  useEffect(()=>{
+    loginWithRedirect();
+  })
+  return (
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+    <Box sx={{ '& > :not(style)': { m: 1 } } }>
+      <Fab variant="extended">
+        <NavigationIcon sx={{ mr: 1 }} />
+        Login 
+      </Fab>
+    </Box>
+    </div>
+  );
+}

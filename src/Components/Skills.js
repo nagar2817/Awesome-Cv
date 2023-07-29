@@ -14,29 +14,29 @@ import Button from '@mui/material/Button';
 // };
 
 const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
-  
+  // console.log(skillsData);
   const [skillsEditable, setSkillsEditable] = useState(false);
-  const [languagesValue, setLanguagesValue] = useState(skillsData[0].languages);
-  const [databasesValue, setDatabasesValue] = useState(skillsData[0].databases);
-  const [librariesValue, setLibrariesValue] = useState(skillsData[0].libraries);
-  const [frameworksValue, setFrameworksValue] = useState(skillsData[0].frameworks);
-  const [toolsValue, setToolsValue] = useState(skillsData[0].tools);
+  const [languagesValue, setLanguagesValue] = useState(skillsData.length === 0 ? '': skillsData[0].languages);
+  const [databasesValue, setDatabasesValue] = useState(skillsData.length === 0 ? '': skillsData[0].databases);
+  const [librariesValue, setLibrariesValue] = useState(skillsData.length === 0 ? '': skillsData[0].libraries);
+  const [frameworksValue, setFrameworksValue] = useState(skillsData.length === 0 ? '': skillsData[0].frameworks);
+  const [toolsValue, setToolsValue] = useState(skillsData.length === 0 ? '': skillsData[0].tools);
 
   // Function to handle saving changes for Skills section
   const handleSaveChangesSkills = () => {
     setSkillsEditable(false);
     // Save changes for Skills section here
-    const updatedSkills = [
-      {
-        languages : languagesValue,
-        databases: databasesValue,
-        libraries: librariesValue,
-        frameworks : frameworksValue,
-        tools: toolsValue
-      }
-    ]
-    console.log("updateed skills",updatedSkills);
-    setSkillsData(updatedSkills);
+    // const updatedSkills = [
+    //   {
+    //     languages : languagesValue,
+    //     databases: databasesValue,
+    //     libraries: librariesValue,
+    //     frameworks : frameworksValue,
+    //     tools: toolsValue
+    //   }
+    // ]
+    // console.log("updateed skills",updatedSkills);
+    setSkillsData(skillsData);
     toast('🦄 Wow so easy!', {
       position: "top-right",
       autoClose: 5000,
@@ -94,7 +94,7 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
                 label="Languages"
                 multiline
                 value={languagesValue}
-                onChange={(e) => setLanguagesValue(e.target.value)}
+                onChange={(e) => setSkillsData({...skillsData,languages:e.target.value})}
                 margin="normal"
               />
               <TextField
@@ -103,7 +103,7 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
                 label="Databases"
                 multiline
                 value={databasesValue}
-                onChange={(e) => setDatabasesValue(e.target.value)}
+                onChange={(e) => setSkillsData({...skillsData,databases:e.target.value})}
                 margin="normal"
               />
               <TextField
@@ -112,7 +112,7 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
                 label="Libraries"
                 multiline
                 value={librariesValue}
-                onChange={(e) => setLibrariesValue(e.target.value)}
+                onChange={(e) => setSkillsData({...skillsData,libraries:e.target.value})}
                 margin="normal"
               />
               <TextField
@@ -121,7 +121,7 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
                 label="Frameworks"
                 multiline
                 value={frameworksValue}
-                onChange={(e) => setFrameworksValue(e.target.value)}
+                onChange={(e) => setSkillsData({...skillsData,frameworks:e.target.value})}
                 margin="normal"
               />
               <TextField
@@ -130,7 +130,7 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
                 label="Tools & Technologies"
                 multiline
                 value={toolsValue}
-                onChange={(e) => setToolsValue(e.target.value)}
+                onChange={(e) => setSkillsData({...skillsData,tools:e.target.value})}
                 margin="normal"
               />
             </Box>

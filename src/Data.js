@@ -81,10 +81,10 @@ export const AchievementsData = [
 ]
 
 export const ContactData = {
-  username: 'nagar2817',
-    firstname: 'Rohit',
-    lastname: 'Nagar',
-    email: 'nagar.2@iitj.ac.in',
-    phonenumber: '9694381083',
-    address:"Kota"
+  username: '',
+    firstname: '',
+    lastname: '',
+    email: '',
+    phonenumber: '',
+    address:""
 }

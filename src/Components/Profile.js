@@ -28,7 +28,7 @@ const Profile = () => {
       {console.log(user.picture)}
       <TwitterUploader image={user.picture} />
 
-<Resume currentname={user.nickname} userEmail={user.nickname} />
+<Resume username={user.nickname} />
 
  </div>
     :

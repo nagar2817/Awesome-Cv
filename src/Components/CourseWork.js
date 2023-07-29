@@ -2,6 +2,8 @@ import React,{forwardRef, useEffect, useState} from 'react';
 import { Box, Typography ,TextField,IconButton} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // import { courseWorkData } from '../Data';
 
@@ -16,6 +18,17 @@ const CourseWork = forwardRef(({courseRef,courseWork,setCourseWorkData},ref)=>{
     setCourseEditable(false);
     setCourseWorkData(courseWork);
     console.log('couse',courseData);
+    toast.success('🦄 Wow so easy!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+      toast("click below to Save!!!")
   };
 
     return (
@@ -43,10 +56,10 @@ const CourseWork = forwardRef(({courseRef,courseWork,setCourseWorkData},ref)=>{
               variant="outlined"
               fullWidth
               multiline
-              label="Achievements (separated by commas)"
+              label="Course Work (separated by commas)"
               value={courseWork.join(',')}
               onChange={(e) => {
-                setCourseData(e.target.value.split(','));
+                setCourseWorkData(e.target.value.split(','));
               }}
               margin="normal"
             />
@@ -57,6 +70,7 @@ const CourseWork = forwardRef(({courseRef,courseWork,setCourseWorkData},ref)=>{
               <Button variant="contained" color="success" onClick={handleSaveChangesAchievements}>Close Changes</Button>
             </Box>
           )}
+          <ToastContainer />
         </Box>
     )
 

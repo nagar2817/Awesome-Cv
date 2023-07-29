@@ -15,7 +15,7 @@ import TwitterUploader from './Twitter';
 // import TweetButton from './Twitter';
 
 
-const Resume = ({userEmail,currentname}) => {
+const Resume = ({username}) => {
 
   const [aboutMeData, setAboutMeData] = useState('');
   const [skillsData, setSkillsData] = useState([]);
@@ -24,6 +24,7 @@ const Resume = ({userEmail,currentname}) => {
   const [educationData, setEducationData] = useState([]);
   const [courseWorkData,setCourseWorkData] = useState([]);
   const [achievementData,setAchievementData]  = useState([]);
+  // const [usr,setUsr] = useState('');
   // const[userData,setUserData] = useState({});
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const Resume = ({userEmail,currentname}) => {
     try {
       // Fetch user data based on the email ID from the Express server
       // console.log(userEmail);
-      const response = await axios.get(`${API_URL}/users/${userEmail}`);
+      const response = await axios.get(`${API_URL}/users/${username}`);
 
         // console.log(response.data);
         // setUserData(response.data);
@@ -58,7 +59,8 @@ const Resume = ({userEmail,currentname}) => {
     try {
       // console.log("in entire change",skillsData);
       const userDataToUpdate = {
-        username:userEmail,
+        username:username,
+        email : username,
         aboutMe: aboutMeData,
         skillsData: skillsData,
         projects: projectData,
@@ -68,7 +70,7 @@ const Resume = ({userEmail,currentname}) => {
         achievements: achievementData,
         // Add other properties as needed
       };
-      const response = await axios.post(`${API_URL}/users/${userEmail}`, userDataToUpdate);
+      const response = await axios.post(`${API_URL}/users/${username}`, userDataToUpdate);
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -171,11 +173,11 @@ const Resume = ({userEmail,currentname}) => {
             {/* <TweetButton /> */}
                  {/* <TwitterUploader image={user.picture} /> */}
 
-        <Contact ref={contactRef}  username={currentname}/>
+        <Contact ref={contactRef}  username={username}  />
             <About ref={aboutRef} AboutData={aboutMeData} setAboutMeData={setAboutMeData}/>
 
         {/* <Skill ref={skillsRef} skillsData={skillsData} setSkillsData={setSkillsData}/> */}
-        <ProjectList ref={projectsRef}  projectData={projectData} setProjectData={setProjectData} userEmail={userEmail} />
+        <ProjectList ref={projectsRef}  projectData={projectData} setProjectData={setProjectData} userEmail={username} />
         <ExperienceList  ref={experienceRef}  experienceData={experienceData} setExperienceData={setExperienceData} />
         <EducationList ref={educationRef} educationData={educationData} setEducationData={setEducationData} />
         <Achievements ref={achievementRef}   achievementData={achievementData} setAchievementData={setAchievementData} />
