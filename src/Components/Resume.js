@@ -42,7 +42,7 @@ const Resume = ({username}) => {
       // Update the state with the received data for different sections
       setAboutMeData(response.data.aboutMe);
       setSkillsData(response.data.skillsData);
-      // console.log("skills",skillsData);
+      console.log("Fetched skills",skillsData);
       setProjectData(response.data.projects);
       setExperienceData(response.data.experience);
       setEducationData(response.data.education);
@@ -90,7 +90,7 @@ const Resume = ({username}) => {
     //   };
 
     const aboutRef = useRef(null);
-    // const skillsRef = useRef(null);
+    const skillsRef = useRef(null);
     const projectsRef = useRef(null);
     const experienceRef = useRef(null);
     const educationRef = useRef(null);
@@ -128,11 +128,11 @@ const Resume = ({username}) => {
              >
               About Me
             </Typography>
-            {/* <Typography variant="body1" sx={{ marginBottom: '10px', cursor: 'pointer' }}
+            <Typography variant="body1" sx={{ marginBottom: '10px', cursor: 'pointer' }}
               onClick={() => scrollToSection(skillsRef)}
             >
               Skills
-            </Typography> */}
+            </Typography>
             <Typography variant="body1" sx={{ marginBottom: '10px', cursor: 'pointer' }}
               onClick={() => scrollToSection(projectsRef)}
             >
@@ -176,7 +176,7 @@ const Resume = ({username}) => {
         <Contact ref={contactRef}  username={username}  />
             <About ref={aboutRef} AboutData={aboutMeData} setAboutMeData={setAboutMeData}/>
 
-        {/* <Skill ref={skillsRef} skillsData={skillsData} setSkillsData={setSkillsData}/> */}
+        <Skill ref={skillsRef} skillsData={skillsData} setSkillsData={setSkillsData}/>
         <ProjectList ref={projectsRef}  projectData={projectData} setProjectData={setProjectData} userEmail={username} />
         <ExperienceList  ref={experienceRef}  experienceData={experienceData} setExperienceData={setExperienceData} />
         <EducationList ref={educationRef} educationData={educationData} setEducationData={setEducationData} />

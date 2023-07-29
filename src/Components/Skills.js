@@ -1,42 +1,31 @@
 import React, { forwardRef, useState } from 'react';
-import { Box, Grid, Typography, TextField, IconButton } from '@mui/material';
+import { Box, Typography, TextField, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { ToastContainer, toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 
-
-// const skillsData = {
-//   languages: 'Python, Java, JavaScript, C, C++, HTML/CSS, Bash',
-//   databases: 'MySQL, PostgreSQL, MongoDB',
-//   libraries: 'NumPy, Pandas, OpenCV',
-//   frameworks: 'Flask, Django, Node.js, Keras, TensorFlow, PyTorch, Bootstrap, Apache Beam',
-//   tools: 'Git, Docker, AWS, GCP, Heroku, JIRA',
-// };
-
 const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
-  // console.log(skillsData);
-  const [skillsEditable, setSkillsEditable] = useState(false);
-  const [languagesValue, setLanguagesValue] = useState(skillsData.length === 0 ? '': skillsData[0].languages);
-  const [databasesValue, setDatabasesValue] = useState(skillsData.length === 0 ? '': skillsData[0].databases);
-  const [librariesValue, setLibrariesValue] = useState(skillsData.length === 0 ? '': skillsData[0].libraries);
-  const [frameworksValue, setFrameworksValue] = useState(skillsData.length === 0 ? '': skillsData[0].frameworks);
-  const [toolsValue, setToolsValue] = useState(skillsData.length === 0 ? '': skillsData[0].tools);
+  console.log("passed skills datainto skills section",typeof skillsData);
+  let languagesValue = '';
+  let databasesValue = '';
+  let frameworksValue= '';
+  let librariesValue = '';
+  let toolsValue = '';
 
-  // Function to handle saving changes for Skills section
+  if(skillsData.length){
+     languagesValue = skillsData[0].languages;
+     databasesValue = skillsData[0].databases;
+     frameworksValue = skillsData[0].frameworks;
+     librariesValue = skillsData[0].libraries;
+    toolsValue = skillsData[0].tools;
+
+  }
+  const [skillsEditable, setSkillsEditable] = useState(false);
+  console.log("passed langauages data",languagesValue);
+
+  // Function to handle saving changes for Skills section 
   const handleSaveChangesSkills = () => {
     setSkillsEditable(false);
-    // Save changes for Skills section here
-    // const updatedSkills = [
-    //   {
-    //     languages : languagesValue,
-    //     databases: databasesValue,
-    //     libraries: librariesValue,
-    //     frameworks : frameworksValue,
-    //     tools: toolsValue
-    //   }
-    // ]
-    // console.log("updateed skills",updatedSkills);
-    setSkillsData(skillsData);
     toast('🦄 Wow so easy!', {
       position: "top-right",
       autoClose: 5000,
@@ -48,8 +37,6 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
       theme: "light",
       });
   };
-
-  // ... rest of the code ...
 
   return (
         <Box sx={{ marginBottom: '40px' }} ref={ref} >
@@ -94,7 +81,7 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
                 label="Languages"
                 multiline
                 value={languagesValue}
-                onChange={(e) => setSkillsData({...skillsData,languages:e.target.value})}
+                onChange={(e) => setSkillsData([{...skillsData, languages:e.target.value}])}
                 margin="normal"
               />
               <TextField
@@ -103,7 +90,7 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
                 label="Databases"
                 multiline
                 value={databasesValue}
-                onChange={(e) => setSkillsData({...skillsData,databases:e.target.value})}
+                onChange={(e) =>  setSkillsData([{...skillsData, databases:e.target.value}])}
                 margin="normal"
               />
               <TextField
@@ -112,7 +99,7 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
                 label="Libraries"
                 multiline
                 value={librariesValue}
-                onChange={(e) => setSkillsData({...skillsData,libraries:e.target.value})}
+                onChange={(e) => setSkillsData([{...skillsData, libraries:e.target.value}])}
                 margin="normal"
               />
               <TextField
@@ -121,7 +108,7 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
                 label="Frameworks"
                 multiline
                 value={frameworksValue}
-                onChange={(e) => setSkillsData({...skillsData,frameworks:e.target.value})}
+                onChange={(e) =>  setSkillsData([{...skillsData, frameworks:e.target.value}])}
                 margin="normal"
               />
               <TextField
@@ -130,7 +117,7 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
                 label="Tools & Technologies"
                 multiline
                 value={toolsValue}
-                onChange={(e) => setSkillsData({...skillsData,tools:e.target.value})}
+                onChange={(e) =>  setSkillsData([{...skillsData, tools:e.target.value}])}
                 margin="normal"
               />
             </Box>
@@ -153,7 +140,6 @@ draggable
 pauseOnHover
 theme="light"
 />
-{/* Same as */}
 <ToastContainer />
         </Box>
   );
