@@ -34,7 +34,7 @@ const Education = ({ educationDetail, updateEducationDetail }) => {
     }
     setEducationEditable(false);
     updateEducationDetail(currentData);
-    console.log("currentEducationData", currentData);
+    // console.log("currentEducationData", currentData);
   };
 
   return (

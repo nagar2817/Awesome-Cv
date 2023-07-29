@@ -39,7 +39,7 @@ const Experience = ({ experienceDetail, updateExperienceData }) => {
     }
     setExperienceEditable(false);
     updateExperienceData(currentData);
-    console.log("currentExperienceData", currentData);
+    // console.log("currentExperienceData", currentData);
   };
 
   const handleCancel = ()=>{

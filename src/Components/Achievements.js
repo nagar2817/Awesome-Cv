@@ -10,17 +10,17 @@ import 'react-toastify/dist/ReactToastify.css';
 const Achievements = forwardRef(({achieveRef,achievementData,setAchievementData},ref)=>{
     const [achievementsEditable, setAchievementsEditable] = useState(false);
   const [currentData, setCurrentData] = useState(achievementData);
-  console.log(achievementData);
+  // console.log(achievementData);
 
   useEffect(()=>{
     setCurrentData(achievementData);
   },[])
 
-  console.log("curretn",currentData);
+  // console.log("curretn",currentData);
   const handleSaveChangesAchievements = () => {
     setAchievementsEditable(false);
     setAchievementData(achievementData);
-    console.log("achiementData",currentData);
+    // console.log("achiementData",currentData);
     toast.success('🦄 Wow so easy!', {
       position: "top-right",
       autoClose: 5000,

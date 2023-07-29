@@ -18,7 +18,7 @@ const ProjectList = forwardRef(({projectData,setProjectData,userEmail},ref)=>{
     return( 
         <Box sx={{ marginBottom: '40px' }} ref={ref}>
         <Typography variant="h5"> 
-        {console.log(projectData)}
+        {/* {console.log(projectData)} */}
         Projects</Typography>
        
         <IconButton onClick={() => setProjectData([...projectData, { name: "", startDate: "", endDate: "", githubLink: "", description: [] }])} size="small" aria-label="add">

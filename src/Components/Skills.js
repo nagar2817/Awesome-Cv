@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 
 const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
-  console.log("passed skills datainto skills section",typeof skillsData);
+  // console.log("passed skills datainto skills section",typeof skillsData);
   let languagesValue = '';
   let databasesValue = '';
   let frameworksValue= '';
@@ -21,7 +21,7 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
 
   }
   const [skillsEditable, setSkillsEditable] = useState(false);
-  console.log("passed langauages data",languagesValue);
+  // console.log("passed langauages data",languagesValue);
 
   // Function to handle saving changes for Skills section 
   const handleSaveChangesSkills = () => {
@@ -56,7 +56,7 @@ const Skill = forwardRef(({ skillsData,setSkillsData},ref) => {
             <Typography variant="body1">
               <ul>
                 <li>
-  {console.log(skillsData)}
+  {/* {console.log(skillsData)} */}
                   <strong>Languages: </strong> {languagesValue}
                 </li>
                 <li>

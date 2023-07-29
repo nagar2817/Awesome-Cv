@@ -27,7 +27,7 @@ const Contact = forwardRef(({username,usr,setUsr},ref)=>{
 
       // If the API call is successful, update the state with the user data
       setContactData(response.data);
-      console.log("contact info",response.data);
+      console.log("Fetched contact info",response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
@@ -40,7 +40,7 @@ const Contact = forwardRef(({username,usr,setUsr},ref)=>{
     try{
       
       const response = await axios.post(`${API_URL}/usersinfo`,contactData);
-      console.log(response.data);
+      console.log("Saved Contact info ",response.data);
       // setUsr(contactData.username) 
       // setContactData(response.data);
       toast.success('🦄 Wow so easy!', {
@@ -53,7 +53,7 @@ const Contact = forwardRef(({username,usr,setUsr},ref)=>{
         progress: undefined,
         theme: "dark",
         });
-        toast("Contact Info has been saved!!!")
+        toast("Contact Info has been !!!")
     }catch(error){
       console.log('error while updating',error);
     }

@@ -25,7 +25,6 @@ const Profile = () => {
     <div>
       {console.log(user)}
       <Header user={user} />
-      {console.log(user.picture)}
       <TwitterUploader image={user.picture} />
 
 <Resume username={user.nickname} />

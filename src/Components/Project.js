@@ -35,7 +35,7 @@ const Project = ({ projectDetail, tempDelete, updateProjectData }) => {
     setProjectEditable(false);
     // Save changes for the Project section here
     updateProjectData(currentData);
-    console.log("currentData", currentData);
+    // console.log("currentData", currentData);
   };
 
   return (

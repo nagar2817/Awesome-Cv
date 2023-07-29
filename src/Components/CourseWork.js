@@ -17,7 +17,7 @@ const CourseWork = forwardRef(({courseRef,courseWork,setCourseWorkData},ref)=>{
   const handleSaveChangesAchievements = () => {
     setCourseEditable(false);
     setCourseWorkData(courseWork);
-    console.log('couse',courseData);
+    // console.log('couse',courseData);
     toast.success('🦄 Wow so easy!', {
       position: "top-right",
       autoClose: 5000,

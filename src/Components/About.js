@@ -43,7 +43,6 @@ const About = forwardRef(({AboutData,setAboutMeData},ref)=>{
     </Typography>
     {!aboutEditable ? (
       <Typography variant="body1">
-  {/* {console.log(aboutValue)} */}
         {AboutData}</Typography>
     ) : (
       <TextField
