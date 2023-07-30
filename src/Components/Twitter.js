@@ -40,8 +40,11 @@ body: data
 try {
   // Send the file to the server
   console.log('tweet function calling...')
-  await axios.post(`${API_URL}/api/uploadToTwitter`, {url});
-  toast.success('🦄 Tweet Posted!', {
+  const result = await axios.post(`${API_URL}/api/uploadToTwitter`, {url});
+  // console.log("result",result.data)
+  if(result.status===200){
+    // alert('Tweet Done')
+    toast.success('🦄 Tweet Posted!', {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
@@ -51,9 +54,13 @@ try {
     progress: undefined,
     theme: "dark",
     });
-  // Show success message to the user
-  setStatus('Image uploaded and tweet posted successfully!');
-  console.log("posted...");
+  }else{
+    alert('please try again');
+  }
+  
+  // // Show success message to the user
+  // setStatus('Image uploaded and tweet posted successfully!');
+  // console.log("posted...");
   e.target.value  = '';
  
 } catch (error) {
