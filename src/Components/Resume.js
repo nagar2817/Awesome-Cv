@@ -57,6 +57,7 @@ const Resume = ({username}) => {
       };
       const response = await axios.post(`${API_URL}/users/${username}`, userDataToUpdate);
       console.log(response.data);
+      alert('Changes has been Saved!');
       return response.data;
     } catch (error) {
       console.error('Error:', error);

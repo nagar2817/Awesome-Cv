@@ -6,6 +6,7 @@ import TwitterUploader from "./Twitter";
 // import LogoutButton from "./LogoutButton";
 import Resume from "./Resume";
 import Header from "./Header";
+// import TweetAuth from "./Tweet";//
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -26,6 +27,8 @@ const Profile = () => {
       {console.log(user)}
       <Header user={user} />
       <TwitterUploader image={user.picture} />
+
+      {/* <TweetAuth /> */}
 
 <Resume username={user.nickname} />
 
