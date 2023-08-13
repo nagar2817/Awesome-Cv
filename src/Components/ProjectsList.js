@@ -1,11 +1,10 @@
 import React, { forwardRef } from "react";
 import {Box,Typography,IconButton} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-// import { projectsData } from "../Data";
+
 import Project from "./Project";
 const ProjectList = forwardRef(({projectData,setProjectData,userEmail},ref)=>{
   const handleUpdateProject = (index, updatedProjectData) => {
-    // Update the projectData array based on the index
     const updatedProjectDataArray = [...projectData];
     updatedProjectDataArray[index] = updatedProjectData;
     setProjectData(updatedProjectDataArray);

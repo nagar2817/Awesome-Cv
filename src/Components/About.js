@@ -5,9 +5,6 @@ import Button from '@mui/material/Button';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-// import { AboutData } from '../Data';
-
 const About = forwardRef(({AboutData,setAboutMeData},ref)=>{
     const [aboutEditable, setAboutEditable] = useState(false);
     // const [aboutValue,setAboutValue] = useState(AboutData);
@@ -15,16 +12,6 @@ const About = forwardRef(({AboutData,setAboutMeData},ref)=>{
     const saveHandler = ()=>{
         setAboutEditable(false);
         setAboutMeData(AboutData);
-        toast.success('🦄 Wow so easy!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          });
           toast("click below to Save!!!")
     }
     return (
@@ -42,8 +29,7 @@ const About = forwardRef(({AboutData,setAboutMeData},ref)=>{
       )}
     </Typography>
     {!aboutEditable ? (
-      <Typography variant="body1">
-        {AboutData}</Typography>
+      <Typography variant="body1"> {AboutData} </Typography>
     ) : (
       <TextField
         variant="outlined"
